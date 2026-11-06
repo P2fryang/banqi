@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Banqi 半棋</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <h1>Banqi 半棋</h1>
+  <p id="status" aria-live="polite"></p>
+  <div id="board"></div>
+  <div class="trays">
+    <div><h2>Captured red</h2><div id="tray-r" class="tray"></div></div>
+    <div><h2>Captured black</h2><div id="tray-b" class="tray"></div></div>
+    <div><h2>Face-down</h2><p id="hidden"></p></div>
+  </div>
+  <div class="controls">
+    <label>Mode
+      <select id="mode"><option value="ruled">Ruled</option><option value="free">Free play</option></select>
+    </label>
+    <label>Rules
+      <select id="ruleset">
+        <option value="taiwan">Taiwanese</option>
+        <option value="mainland">Mainland</option>
+        <option value="hongkong">Hong Kong</option>
+        <option value="custom">Custom (JSON)</option>
+      </select>
+    </label>
+    <button id="new">New game</button>
+    <button id="undo">Undo</button>
+    <button id="resign">Resign</button>
+  </div>
+  <textarea id="custom" hidden spellcheck="false" aria-label="Custom rules as JSON"></textarea>
+</main>
+<script src="rules.js"></script>
+<script src="engine.js"></script>
+<script src="ui.js"></script>
+</body>
+</html>

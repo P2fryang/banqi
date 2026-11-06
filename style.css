@@ -1,0 +1,39 @@
+:root {
+  --felt: #22302c; --wood: #c79a5b; --line: #6a4724; --frame: #8b5e2f;
+  --ivory: #f3e7c8; --dark: #3a2918; --red: #b3261e; --ink: #1b1b1b; --gold: #f2c14e; --text: #e9e4d4;
+}
+* { box-sizing: border-box; }
+body { margin: 0; padding: 1rem; background: var(--felt); color: var(--text); font: 16px/1.5 system-ui, sans-serif; display: flex; justify-content: center; }
+main { width: min(100%, 720px); }
+h1 { margin: 0; font: 600 2rem/1.2 "Songti TC", "Noto Serif TC", serif; }
+h2 { margin: 0; font-size: .85rem; font-weight: 600; opacity: .75; }
+#status { margin: .25rem 0 0; min-height: 1.5em; }
+
+#board { display: grid; grid-template-columns: repeat(8, 1fr); margin: 1rem 0; background: var(--wood); border: 6px solid var(--frame); border-radius: 6px; }
+.cell { position: relative; aspect-ratio: 1; padding: 0; display: grid; place-items: center; background: none; border: 1px solid var(--line); cursor: pointer;
+  font: 700 clamp(1.1rem, 5.5vw, 2.4rem)/1 "Songti TC", "Noto Serif TC", SimSun, serif; }
+.cell span { position: relative; }
+.down::before, .up::before { content: ""; position: absolute; inset: 9%; border-radius: 50%; }
+.down::before { background: var(--dark); box-shadow: inset 0 0 0 3px #7a5a35; }
+.up::before { background: var(--ivory); box-shadow: inset 0 0 0 3px currentColor; }
+.up.r { color: var(--red); }
+.up.b { color: var(--ink); }
+.sel::after, .hint::after { content: ""; position: absolute; border-radius: 50%; }
+.sel::after { inset: 3%; border: 3px solid var(--gold); }
+.hint::after { width: 26%; height: 26%; background: rgba(30, 110, 60, .7); }
+.hint.cap::after { width: auto; height: auto; inset: 3%; background: none; border: 3px solid #1e8c4a; }
+.cell:focus-visible { outline: 3px solid var(--gold); outline-offset: -3px; }
+
+.trays { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+.tray { display: flex; flex-wrap: wrap; gap: 4px; min-height: 2rem; padding-top: 4px; }
+.tray span { display: grid; place-items: center; width: 1.9rem; height: 1.9rem; border-radius: 50%; background: var(--ivory); font: 700 1.1rem/1 "Songti TC", "Noto Serif TC", serif; }
+.tray .r { color: var(--red); }
+.tray .b { color: var(--ink); }
+#hidden { margin: 0; font-size: 1.4rem; }
+
+.controls { display: flex; gap: .75rem; flex-wrap: wrap; align-items: end; margin-top: 1rem; }
+.controls label { display: grid; font-size: .85rem; opacity: .9; }
+select, button { font: inherit; padding: .35rem .7rem; border-radius: 4px; border: 1px solid #5d7a70; background: #2f423c; color: inherit; }
+button { cursor: pointer; }
+button:hover { background: #3a524a; }
+textarea { width: 100%; height: 10rem; margin-top: 1rem; padding: .5rem; font: .85rem/1.4 ui-monospace, monospace; background: #1a2522; color: var(--text); border: 1px solid #5d7a70; border-radius: 4px; }
