@@ -20,7 +20,7 @@
     <label>Mode
       <select id="mode"><option value="ruled">Ruled</option><option value="free">Free play</option></select>
     </label>
-    <label>Rules
+    <label>Rules <small>(changing starts a new game)</small>
       <select id="ruleset">
         <option value="taiwan">Taiwanese</option>
         <option value="mainland">Mainland</option>
@@ -28,11 +28,44 @@
         <option value="custom">Custom (JSON)</option>
       </select>
     </label>
+    <label>Pieces
+      <select id="lang"><option value="zh">中文</option><option value="en">English</option></select>
+    </label>
+    <button id="rotate">Rotate board</button>
     <button id="new">New game</button>
     <button id="undo">Undo</button>
     <button id="resign">Resign</button>
   </div>
-  <textarea id="custom" hidden spellcheck="false" aria-label="Custom rules as JSON"></textarea>
+  <div id="customwrap" hidden>
+    <p class="note">Edit the JSON, then press New game to apply.</p>
+    <textarea id="custom" spellcheck="false" aria-label="Custom rules as JSON"></textarea>
+  </div>
+  <details id="rulebook">
+    <summary>Rulebook</summary>
+    <h3>Goal</h3>
+    <p>Leave your opponent with no legal move, usually by capturing all of their pieces. The general is not royal: losing it does not end the game (unless a custom rule says so).</p>
+    <h3>Setup and turns</h3>
+    <p>32 pieces are shuffled face-down on a 4×8 board. On your turn do exactly one of: flip a face-down piece, move one of your face-up pieces, or capture with one. The first player to flip takes the colour of the piece revealed; the other player gets the other colour.</p>
+    <h3>Moving and capturing</h3>
+    <p>A piece moves one square up, down, left or right into an empty square. It captures by moving onto an adjacent face-up enemy piece of equal or lower rank. Only face-up pieces can capture or be captured.</p>
+    <p id="rankline"></p>
+    <p>Default exception: the general cannot capture soldiers, and soldiers can capture the general.</p>
+    <h3>Cannon (Taiwanese)</h3>
+    <p>The cannon moves one square like the others. To capture, it travels in a straight line over exactly one piece of any colour, face-up or face-down (the screen), and takes any face-up enemy piece directly behind it. All squares between the cannon and the screen, and between the screen and the target, must be empty. It cannot capture an adjacent piece.</p>
+    <h3>Ending the game</h3>
+    <p>The player to move with no legal move loses. Repeating positions is not detected, so use Resign to end a stalemate loop.</p>
+    <h3>Free play</h3>
+    <p>No rules are enforced. Click a face-down piece to flip it, or click a face-up piece and then any square to move or capture. Click the same piece again to flip it back.</p>
+    <h3>Custom rules</h3>
+    <p>Choose Custom and edit the JSON:</p>
+    <ul>
+      <li><b>counts</b>: pieces per side (G general, A advisor, E elephant, R chariot, H horse, C cannon, S soldier). Total must be 32 or fewer.</li>
+      <li><b>rank</b>: higher beats lower, equal can capture equal. For the cannon this is how well it defends.</li>
+      <li><b>beats</b>: exceptions such as <code>"G&gt;S": false</code> (general cannot take soldier).</li>
+      <li><b>cannonJumps</b>: true for the jump-capture cannon, false for a plain ranked piece.</li>
+      <li><b>endOnGeneral</b>: true ends the game when a general is captured.</li>
+    </ul>
+  </details>
 </main>
 <script src="rules.js"></script>
 <script src="engine.js"></script>
